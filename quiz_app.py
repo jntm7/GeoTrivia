@@ -62,7 +62,7 @@ class QuizApp:
         elif score >= total * 0.8:
             print("Excellent work, you did very good!")
         elif score >= total * 0.6:
-            print("Good job, your parents are proud!")
+            print("Good job, you did well!")
         elif score >= total * 0.4:
             print("Not bad, but I know you can do better!")
         else:
