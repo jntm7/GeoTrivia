@@ -2,9 +2,9 @@ from quiz_console import run_quiz_console
 from quiz_app import run_quiz_app
 
 def main():
-    print("=" * 32)
-    print("     Welcome to GeoTrivia!")
-    print("=" * 32)
+    print("=" * 50)
+    print("Welcome to GeoTrivia!".center(50))
+    print("=" * 50)
     print("To begin, please choose a mode:")
     print("[1] Console\n[2] App")
 
