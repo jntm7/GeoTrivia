@@ -21,13 +21,21 @@ def run_quiz_console():
         for i, answer in enumerate(answers):
             print(f"{chr(65+i)}. {answer}")
         print()
-        user_answer = input("Please select your answer: ").upper()
-        if answers[ord(user_answer) - 65] == question['correct_answer']:
-            print("\033[92m\nCorrect! Well done!\033[0m")
-            score += 1
-        else:
-            print()
-            print(f"\033[91mIncorrect!\nThe correct answer was: [{chr(65 + i)}] {question['correct_answer']}\033[0m")
+
+        while True:
+            user_answer = input("Please select your answer: ").upper()
+            if user_answer in ['A', 'B', 'C', 'D'] and len(user_answer) == 1:
+                answer_index = ord(user_answer) - 65
+                if answer_index < len(answers):
+                    if answers[answer_index] == question['correct_answer']:
+                        print("\033[92m\nCorrect! Well done!\033[0m")
+                        score += 1
+                    else:
+                        print()
+                        print(f"\033[91mIncorrect!\nThe correct answer was: [{chr(65 + i)}] {question['correct_answer']}\033[0m")
+                break
+            else:
+                print("\nPlease enter a valid option (A, B, C, D):")
 
     print("\n" + "-" * 40)
     print(f"Final Score: {score} / {len(questions)}")
