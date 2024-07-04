@@ -1,6 +1,11 @@
 import random
 from utils.questions import get_questions
 
+def green_text(text):
+    return "\033[92m" + text + "\033[0m"
+def red_text(text):
+    return "\033[91m" + text + "\033[0m"
+
 def run_quiz_console():
     score = 0
     category_id = 22
@@ -18,11 +23,11 @@ def run_quiz_console():
         print()
         user_answer = input("Please select your answer: ").upper()
         if answers[ord(user_answer) - 65] == question['correct_answer']:
-            print("\nCorrect! Well done!")
+            print("\033[92m\nCorrect! Well done!\033[0m")
             score += 1
         else:
             print()
-            print(f"Incorrect!\nThe correct answer was: [{chr(65 + i)}] {question['correct_answer']}")
+            print(f"\033[91mIncorrect!\nThe correct answer was: [{chr(65 + i)}] {question['correct_answer']}\033[0m")
 
     print("\n" + "-" * 40)
     print(f"Final Score: {score} / {len(questions)}")
