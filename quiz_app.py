@@ -3,6 +3,9 @@ import tkinter as tk
 import tkinter.font as tkFont
 from tkinter import messagebox
 from utils.questions import get_questions
+from ctypes import windll
+
+windll.shcore.SetProcessDpiAwareness(1)
 
 # Quiz
 class QuizApp:
@@ -11,7 +14,7 @@ class QuizApp:
         self.questions = questions
         self.current_question = 0
         self.score = 0
-        self.dark_mode_var = tk.BooleanVar()
+        self.dark_mode_var = tk.BooleanVar(value=True)
 
         self.root.title("GeoTrivia")
         self.root.geometry("900x675")
@@ -48,9 +51,10 @@ class QuizApp:
         self.submit_button.grid(row=5, column=0, pady=20, padx=10, sticky="e")
 
         self.next_button = tk.Button(self.main_frame, text="Next Question", command=self.next_question, 
-                                    state=tk.DISABLED, width=15, bg="lightgray", fg="black",
-                                    activebackground="white", activeforeground="black",
-                                    highlightthickness=0)
+                            state=tk.DISABLED, width=15, bg="lightgray", fg="black",
+                            disabledforeground="black",
+                            activebackground="white", activeforeground="black",
+                            highlightthickness=0)
         self.next_button.grid(row=5, column=1, pady=20, padx=10, sticky="w")
 
         self.dark_mode_button = tk.Checkbutton(self.main_frame, text="Dark Mode", variable=self.dark_mode_var, command=self.toggle_dark_mode, bg="white", fg="black", selectcolor="lightgray", activebackground="white", activeforeground="black", highlightthickness=0)
@@ -60,6 +64,7 @@ class QuizApp:
         self.feedback_label.grid(row=6, column=0, columnspan=2, pady=10, sticky="nsew")
 
         self.load_question()
+        self.toggle_dark_mode()
 
     # Dark Mode
     def toggle_dark_mode(self):
@@ -67,10 +72,12 @@ class QuizApp:
             bg_color = "#2b2b2b"
             fg_color = "white"
             select_color = "#4a4a4a"
+            button_fg = "white"
         else:
             bg_color = "white"
             fg_color = "black"
             select_color = "lightgray"
+            button_fg = "black"
 
         self.root.config(bg=bg_color)
         self.main_frame.config(bg=bg_color)
@@ -81,14 +88,14 @@ class QuizApp:
         button_fg = fg_color
 
         for button in (self.submit_button, self.next_button):
-            button.config(bg=button_bg, fg=button_fg, activebackground=bg_color, activeforeground=fg_color,highlightbackground=bg_color, highlightcolor=fg_color)
+            button.config(bg=button_bg, fg=button_fg, disabledforeground=button_fg, activebackground=bg_color, activeforeground=fg_color, highlightbackground=bg_color, highlightcolor=fg_color)
         
         for rb in self.radio_buttons:
             rb.config(bg=bg_color, fg=fg_color, selectcolor=select_color, activebackground=bg_color, activeforeground=fg_color, highlightbackground=bg_color, highlightcolor=fg_color)
 
         self.question_text.config(bg=bg_color, fg=fg_color)
         self.question_text.config(insertbackground=fg_color)
-
+        
         self.feedback_label.config(bg=bg_color, fg=fg_color)
 
         self.dark_mode_button.config(bg=bg_color, fg=fg_color, selectcolor=select_color, activebackground=bg_color, activeforeground=fg_color, highlightbackground=bg_color, highlightcolor=fg_color)
