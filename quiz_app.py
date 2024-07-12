@@ -19,6 +19,7 @@ class QuizApp:
         self.root.title("GeoTrivia")
         self.root.geometry("900x675")
         self.root.resizable(True, True)
+        self.root.iconbitmap('icon.ico')
         self.root.columnconfigure(0, weight=1)
         self.root.rowconfigure(0, weight=1)
 
